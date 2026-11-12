@@ -2,5 +2,6 @@
 <resources>
     <string name="app_name">TouchGuard</string>
     <string name="tile_label">Travar toques</string>
-    <string name="service_desc">Cria faixas invisíveis nas bordas da tela que ignoram toques, para reduzir toques fantasmas.</string>
+    <string name="editor_title">Zonas bloqueadas</string>
+    <string name="service_desc">Cria zonas invisíveis na tela que ignoram toques, para reduzir toques fantasmas. Também registra onde os toques fantasmas aparecem durante a calibração. Não lê o conteúdo da tela.</string>
 </resources>
