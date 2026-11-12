@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TouchGuard</string>
+    <string name="tile_label">Travar toques</string>
+    <string name="service_desc">Cria faixas invisíveis nas bordas da tela que ignoram toques, para reduzir toques fantasmas.</string>
+</resources>
