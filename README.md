@@ -1,55 +1,68 @@
-# TouchGuard
+# TouchGuard 1.2
 
-App para reduzir toques fantasmas: cria faixas invisíveis nas bordas da tela que
-ignoram qualquer toque, e um modo que trava a tela toda.
+App para reduzir toques fantasmas. Ele descobre onde os toques falsos aparecem,
+cria zonas invisíveis nesses pontos e ignora qualquer toque que caia nelas.
+Também tem uma trava que ignora toques na tela inteira.
 
 Não conserta o defeito da tela. Só ajuda quando os toques falsos caem sempre nas
 mesmas regiões.
 
 ## Como gerar o APK só com o celular (GitHub Actions)
 
-1. Crie uma conta grátis em github.com e um repositório novo (pode ser privado).
-2. Envie todos os arquivos deste zip para o repositório, incluindo a pasta `.github`
-   (no site: "Add file" > "Upload files". Descompacte o zip antes).
-3. Abra a aba **Actions**. O build "Build APK" roda sozinho (leva uns 3 a 5 minutos).
+1. No repositório do GitHub, envie todos os arquivos deste zip, substituindo os antigos,
+   incluindo a pasta `.github` (no site: "Add file" > "Upload files". Descompacte antes).
+2. Abra a aba **Actions**. O build "Build APK" roda sozinho (uns 3 a 5 minutos).
    Se não rodar, escolha "Build APK" e toque em "Run workflow".
-4. Quando terminar, abra a execução e baixe o arquivo **TouchGuard-apk** em "Artifacts".
-   Dentro do zip baixado está o `app-debug.apk`.
-5. Instale o APK no celular (permita "instalar apps desconhecidos" para o navegador
-   ou gerenciador de arquivos).
+3. Quando terminar, abra a execução e baixe **TouchGuard-apk** em "Artifacts".
+   Dentro do zip está o `app-debug.apk`.
+4. Instale por cima da versão anterior. As configurações são mantidas.
 
-## Como gerar o APK no computador
+## Como gerar no computador
 
-Com Android Studio: abra a pasta do projeto e use Build > Build APK(s).
-Pela linha de comando (JDK 17 e Android SDK instalados): `gradle assembleDebug`.
+Android Studio: abra a pasta e use Build > Build APK(s).
+Linha de comando (JDK 17 e Android SDK): `gradle assembleDebug`.
 O APK sai em `app/build/outputs/apk/debug/app-debug.apk`.
 
 ## Usando
 
-1. Abra o TouchGuard > "Abrir configurações de Acessibilidade" > ative o TouchGuard.
-   Se o Android bloquear (configuração restrita): Configurações > Apps > TouchGuard >
-   menu de três pontos > "Permitir configurações restritas".
-2. Ligue "Mostrar zonas bloqueadas" e ajuste as faixas até cobrirem a região onde os
-   toques fantasmas aparecem. Depois pode desligar a opção.
-3. Adicione o botão "Travar toques" ao painel rápido para travar a tela toda quando
-   precisar. Para liberar, segure o botão na tela por 2 segundos. A trava também se
-   solta sozinha após o tempo configurado (padrão: 30 min; 0 = nunca).
+1. Abra o TouchGuard > "Ativar na Acessibilidade" > ative o TouchGuard.
+   Se o Android bloquear: Configurações > Apps > TouchGuard > ⋮ >
+   "Permitir configurações restritas".
+2. **Calibração**: escolha o tempo (30 s, 1 min ou 2 min) e toque em "Iniciar calibração".
+   Solte o celular sobre a mesa. Depois de 5 s, todo toque registrado é fantasma.
+   Para cancelar, segure o botão na tela por 2 s.
+3. No fim abre o **editor de zonas**: pontos amarelos são os toques fantasmas,
+   retângulos laranja tracejados são as zonas sugeridas. Toque em "Aplicar sugestões"
+   (ou em cada área laranja) e depois em "Salvar".
+4. No editor você também pode **desenhar zonas** em qualquer lugar arrastando o dedo,
+   e apagar zonas no modo "Apagar". O botão ⇅ muda a barra de lugar.
+5. **Painel Edge (Samsung)**: na seção "Alça do Painel Edge", escolha o lado da alça,
+   ligue "Mostrar zonas bloqueadas" e ajuste posição e altura até a área verde ficar
+   em cima da alça. Ali os toques sempre passam, então dá para puxar o painel.
+6. **Trava total**: pelo app ou pelo botão "Travar toques" do painel rápido
+   (no Android 13+ o app adiciona o botão com um toque). Para liberar, segure o botão
+   na tela por 2 s. A trava também se solta sozinha após o tempo configurado.
 
-## Limitações
+## Bom saber
 
-- Faixas muito largas ou nas bordas de cima e de baixo podem atrapalhar gestos do
-  sistema, barra de notificações e teclado.
-- Não dá para filtrar toques fantasmas no meio da tela sem bloquear toques de verdade.
-- O código não foi compilado nem testado em um aparelho antes de ser entregue.
-  Se o build falhar, mande a mensagem de erro que eu corrijo.
+- Com o TouchGuard aberto, as zonas desenhadas ficam pausadas, para o app nunca
+  ficar bloqueado. As faixas de borda continuam ativas.
+- As zonas acompanham o mesmo ponto físico da tela quando o celular gira.
+- Zonas grandes ou no meio da tela bloqueiam também os toques de verdade naquela área.
+- O app não consegue analisar cada toque e deixar passar só os reais: o Android não
+  permite inspecionar um toque e depois entregá-lo ao app de baixo sem lentidão e
+  falhas. Por isso a "inteligência" fica na calibração, que mostra onde bloquear.
+- O código não foi compilado num aparelho antes de ser entregue (só teve a sintaxe
+  conferida). Se o build falhar, mande a mensagem de erro do Actions.
 
-## Novidades da versão 1.1
+## Novidades da versão 1.2
 
-- A trava total nunca volta ligada depois de reiniciar o celular ou desligar o serviço.
-- Auto-desbloqueio da trava total, configurável de 0 a 120 minutos.
-- Faixas limitadas a 48 dp e margem do app maior, para o próprio app nunca ficar bloqueado.
-- Opção (ligada por padrão) para as faixas laterais não cobrirem a barra de status nem a
-  barra de gestos. As faixas são recalculadas ao girar a tela.
-- O botão do painel rápido mostra "Serviço desligado" e abre o app quando a
-  Acessibilidade não está ativa, em vez de fingir que travou.
-- Ícone de cadeado no app.
+- Calibração com mapa de calor, estatísticas (duração e tamanho do contato) e
+  sugestão automática de zonas.
+- Zonas retangulares em qualquer lugar da tela, com editor em tela cheia.
+- Passagem livre para a alça do Painel Edge (ligada na direita por padrão em Samsung).
+- Visual novo, com tema claro e escuro e ícone de escudo.
+- Botão do painel rápido consulta o sistema para saber se o serviço está ligado.
+- Arrastar os controles não faz mais as zonas piscarem.
+- O tempo do auto-desbloqueio só reinicia quando a trava é ligada.
+- Botão para adicionar "Travar toques" ao painel rápido (Android 13+).
