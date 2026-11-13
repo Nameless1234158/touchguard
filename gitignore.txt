@@ -1,0 +1,5 @@
+# dados pessoais do aparelho: não subir
+padrao.json
+log.csv
+__pycache__/
+*.pyc
